@@ -112,8 +112,8 @@ afterEvaluate {
                 from(components["release"])
 
                 groupId = "com.alpha"
-                artifactId = "admore-sdk"
-                version = "1.0" // Increment version for fixes
+                artifactId = "AdMoreSDK"
+                version = "1.0.0" // Increment version for fixes
 
                 pom {
                     name.set("AdMore SDK")
