@@ -1,0 +1,80 @@
+# Your existing entries (cleaned up)
+*.iml
+.gradle/
+local.properties
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.DS_Store
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Additional important Android entries
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+
+# Log Files
+*.log
+
+# Android Studio captures folder (if not already covered)
+.idea/dictionaries/
+.idea/tasks.xml
+.idea/gradle.xml
+
+# Keystore files (uncomment if you don't want to commit keystores)
+#*.jks
+#*.keystore
+
+# Google Services (uncomment if you want to exclude Firebase config)
+#google-services.json
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+fastlane/readme.md
+
+# Android Profiling
+*.hprof
+
+# NDK
+obj/
+
+# Windows
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Unit test reports
+TEST-*.xml
+
+# Crashlytics
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
