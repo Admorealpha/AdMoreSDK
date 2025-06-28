@@ -2,7 +2,6 @@ package com.alpha.admoresdk.di
 
 import com.alpha.admoresdk.BuildConfig
 import com.alpha.admoresdk.core.network.ApiService
-import com.alpha.admoresdk.core.network.CertificatePinner
 import com.alpha.admoresdk.core.network.NetworkMonitor
 import com.alpha.admoresdk.core.network.RetryInterceptor
 import okhttp3.OkHttpClient
@@ -17,55 +16,49 @@ val networkModule = module {
 
     single<HttpLoggingInterceptor> {
         HttpLoggingInterceptor().apply {
-            // Only enable detailed logging in debug builds to avoid performance issues
             level = if (BuildConfig.DEBUG) {
-                HttpLoggingInterceptor.Level.HEADERS // Changed from BODY to HEADERS to avoid stream issues
+                HttpLoggingInterceptor.Level.BODY
             } else {
                 HttpLoggingInterceptor.Level.NONE
             }
         }
     }
 
-    single { CertificatePinner() }
-
     single { RetryInterceptor() }
 
     single<OkHttpClient> {
         OkHttpClient.Builder().apply {
-            // Add retry interceptor first, then logging interceptor
+            // Add retry interceptor first
             addInterceptor(get<RetryInterceptor>())
 
-            // Only add logging interceptor in debug builds
-          //  if (BuildConfig.DEBUG) {
-                addInterceptor(get<HttpLoggingInterceptor>())
-       //     }
+            // Add logging interceptor for debugging
+//            if (BuildConfig.DEBUG) {
+//                addInterceptor(get<HttpLoggingInterceptor>())
+//            }
 
-            // Only add certificate pinner if it's not empty (i.e., not for IP addresses)
-            val certificatePinner = get<CertificatePinner>().getPinner()
-            if (certificatePinner.pins.isNotEmpty()) {
-                certificatePinner(certificatePinner)
-            }
-
+            // Timeouts
             connectTimeout(30L, TimeUnit.SECONDS)
             readTimeout(30L, TimeUnit.SECONDS)
             writeTimeout(30L, TimeUnit.SECONDS)
 
-            // Add connection pooling for better performance
+            // Connection pooling
             connectionPool(okhttp3.ConnectionPool(5, 5, TimeUnit.MINUTES))
 
-            // Disable automatic retries to avoid conflicts with our custom retry interceptor
+            // Disable automatic retries
             retryOnConnectionFailure(false)
         }.build()
     }
 
     single<Retrofit> {
-        // Construct the base URL properly
-        val baseUrl = if (BuildConfig.host.startsWith("http://") || BuildConfig.host.startsWith("https://")) {
-            // If host already contains scheme, use it directly
-            BuildConfig.host.let { if (it.endsWith("/")) it else "$it/" }
-        } else {
-            // If host doesn't contain scheme, add http:// and trailing slash
-            "http://${BuildConfig.host}/"
+        // For HTTPS URLs, ensure proper base URL construction
+        val baseUrl = when {
+            BuildConfig.host.startsWith("https://") || BuildConfig.host.startsWith("http://") -> {
+                if (BuildConfig.host.endsWith("/")) BuildConfig.host else "${BuildConfig.host}/"
+            }
+            else -> {
+                // Default to HTTPS for security
+                "https://${BuildConfig.host}/"
+            }
         }
 
         Retrofit.Builder()

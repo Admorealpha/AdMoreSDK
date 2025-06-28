@@ -12,7 +12,7 @@ class CollectorTimeManager(
     companion object {
         private const val WIFI_LAST_COLLECTION = "wifi_last_collection"
         private const val BLUETOOTH_LAST_COLLECTION = "bluetooth_last_collection"
-        private const val ONE_DAY_MILLIS = 100 //24 * 60 * 60 * 1000L
+        private const val FOUR_HOURS_MILLIS = 4 * 60 * 60 * 1000L // 4 hours
     }
 
     fun shouldCollectWiFi(): Boolean {
@@ -34,7 +34,7 @@ class CollectorTimeManager(
     private fun shouldCollect(key: String): Boolean {
         val lastCollectionTime = prefs.getLong(key, 0L)
         val currentTime = System.currentTimeMillis()
-        return currentTime - lastCollectionTime >= ONE_DAY_MILLIS
+        return currentTime - lastCollectionTime >= FOUR_HOURS_MILLIS
     }
 
     private fun updateCollectionTime(key: String) {

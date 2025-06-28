@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.alpha.admore.ui.theme.AdMoreSDKTheme
 import com.alpha.admoresdk.AdMoreSDK
+import com.alpha.admoresdk.presentation.callback.InitCallback
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +29,15 @@ class MainActivity : ComponentActivity() {
 
                     AdMoreSDK.initialize(
                         context = this,
-                        uniqueKey = "wwwwwe")
+                        uniqueKey = "RRRRRRRRRRR",callback= object : InitCallback {
+                            override fun onSuccess() {
+                                AdMoreSDK.sendEvent("event_name", mapOf("key" to "value"))
+                            }
+
+                            override fun onError(error: Throwable) {
+                                // Handle initialization error
+                            }
+                        })
                 }
             }
         }
