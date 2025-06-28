@@ -112,7 +112,7 @@ afterEvaluate {
 
                 groupId = "com.alpha"
                 artifactId = "AdMoreSDK"
-                version = "1.2" // Increment version for fixes
+                version = "1.3" // Increment version for fixes
 
                 pom {
                     name.set("AdMore SDK")
