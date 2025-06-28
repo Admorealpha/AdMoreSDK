@@ -57,7 +57,7 @@ Add the SDK to your app's `build.gradle` (Module level):
 
 ```kotlin
 dependencies {
-    implementation 'com.github.Admorealpha:AdMoreSDK:1.0.0'
+    implementation 'com.github.Admorealpha:AdMoreSDK:1.3'
 }
 ```
 
@@ -373,7 +373,27 @@ fun onInAppPurchase(itemId: String, price: Double) {
 
 ## 🆕 Changelog
 
-### Version 1.0.0 (Latest)
+### Version 1.3 (Latest)
+- **Enhanced Security**: Improved certificate pinning and encryption protocols
+- **Performance Optimizations**: Reduced memory footprint and faster initialization
+- **Network Improvements**: Better handling of network interruptions and retries
+- **Bug Fixes**: Resolved issues with data synchronization and memory leaks
+- **API Enhancements**: New callback methods for better error handling
+- **Compatibility**: Enhanced compatibility with Android 14 and latest security features
+
+### Version 1.2
+- Improved offline data caching
+- Enhanced error reporting mechanisms
+- Better integration with Koin dependency injection
+- Performance optimizations for battery usage
+
+### Version 1.1
+- Added support for custom event parameters
+- Improved network resilience
+- Enhanced privacy controls
+- Bug fixes and stability improvements
+
+### Version 1.0.0
 - Initial public release
 - Comprehensive data collection capabilities
 - Privacy-first design with granular permissions
