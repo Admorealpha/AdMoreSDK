@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -24,12 +25,12 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
                         name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
                     )
 
                     AdMoreSDK.initialize(
                         context = this,
-                        uniqueKey = "RRRRRRRRRRR",callback= object : InitCallback {
+                        uniqueKey = "ppppppp",callback= object : InitCallback {
                             override fun onSuccess() {
                                 AdMoreSDK.sendEvent("event_name", mapOf("key" to "value"))
                             }
@@ -48,8 +49,9 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
-        modifier = modifier
-    )
+        modifier = modifier.clickable {
+          //  AdMoreSDK.sendEvent("event_name", mapOf("key" to "value"))
+        })
 }
 
 @Preview(showBackground = true)

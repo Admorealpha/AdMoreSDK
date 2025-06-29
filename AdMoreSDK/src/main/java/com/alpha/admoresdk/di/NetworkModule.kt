@@ -31,7 +31,7 @@ val networkModule = module {
             // Add retry interceptor first
             addInterceptor(get<RetryInterceptor>())
 
-            // Add logging interceptor for debugging
+    //         Add logging interceptor for debugging
 //            if (BuildConfig.DEBUG) {
 //                addInterceptor(get<HttpLoggingInterceptor>())
 //            }

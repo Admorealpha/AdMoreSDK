@@ -1,5 +1,6 @@
 package com.alpha.admoresdk.core.storage
 
+import com.alpha.admoresdk.data.model.EventRequest
 import com.alpha.admoresdk.domain.model.Event
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -9,14 +10,14 @@ import kotlinx.coroutines.sync.withLock
  */
 
 class EventCache {
-    private val cachedEvents = mutableListOf<Event>()
+    private val cachedEvents = mutableListOf<EventRequest>()
     private val mutex = Mutex()
 
     /**
      * Adds an event to the cache.
      * @param event The event to add
      */
-    suspend fun addEvent(event: Event) {
+    suspend fun addEvent(event: EventRequest) {
         mutex.withLock {
             cachedEvents.add(event)
         }
@@ -26,7 +27,7 @@ class EventCache {
      * Removes an event from the cache.
      * @param event The event to remove
      */
-    suspend fun removeEvent(event: Event) {
+    suspend fun removeEvent(event: EventRequest) {
         mutex.withLock {
             cachedEvents.remove(event)
         }
@@ -36,7 +37,7 @@ class EventCache {
      * Gets all events in the cache.
      * @return List of cached events
      */
-    suspend fun getEvents(): List<Event> {
+    suspend fun getEvents(): List<EventRequest> {
         return mutex.withLock {
             cachedEvents.toList()
         }

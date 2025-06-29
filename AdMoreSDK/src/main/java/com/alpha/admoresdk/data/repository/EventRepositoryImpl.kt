@@ -1,5 +1,6 @@
 package com.alpha.admoresdk.data.repository
 
+import android.util.Log
 import com.alpha.admoresdk.core.encryption.DataEncryptor
 import com.alpha.admoresdk.core.network.ApiService
 import com.alpha.admoresdk.core.network.NetworkMonitor
@@ -41,7 +42,6 @@ class EventRepositoryImpl(
     }
 
     override suspend fun sendEvent(eventName: String, eventData: Map<String, Any>) {
-        val event = Event(eventName, eventData)
         if (networkMonitor.isNetworkAvailable()) {
             try {
                 // Encrypt data before sending
@@ -58,17 +58,31 @@ class EventRepositoryImpl(
                 // Check if success
                 if (!response.isSuccessful) {
                     // Cache event for retry
-                    eventCache.addEvent(event)
+                    eventCache.addEvent(request)
                 }
             } catch (e: Exception) {
+                val encryptedData = dataEncryptor.encrypt(eventData)
+
+                // Create request object
+                val request = EventRequest(
+                    data = encryptedData,
+                )
                 // Cache event on error
-                eventCache.addEvent(event)
+                eventCache.addEvent(request)
             }
         } else {
+            val encryptedData = dataEncryptor.encrypt(eventData)
+
+            // Create request object
+            val request = EventRequest(
+                data = encryptedData,
+            )
             // Cache event when offline
-            eventCache.addEvent(event)
+            eventCache.addEvent(request)
         }
     }
+
+
 
     private suspend fun sendCachedEvents() {
         // Get all cached events
@@ -76,12 +90,9 @@ class EventRepositoryImpl(
 
         for (event in events) {
             try {
-                // Encrypt data
-                val encryptedData = dataEncryptor.encrypt(event.data)
-
                 // Create request
                 val request = EventRequest(
-                    data = encryptedData,
+                    data = event.data,
                 )
 
                 // Send to API

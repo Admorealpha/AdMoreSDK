@@ -15,7 +15,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
 
         // Build config fields - FIXED: Separate host and base URL
-        buildConfigField("String", "publicKeyBase64", "\"MCowBQYDK2VuAyEAq9m6BNi+QtbXyIm/SYmZmJqof1d6xdcv/+obsEHcqSI=\"")
+        buildConfigField("String", "publicKeyBase64", "\"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhylwhwTzPfMgHwNsnzbK/brtQ5sow8rSrYvCDdMUTcyz/6yEE/LTJUVM2BVRcoeg+YgZgW4ZkcpPLyccF4O9oieTcrJNLc/adArQr9fcUxpJ2pKCebpaRWOJRcxqXx4tNC3LcpgbmJE7Reu6Phc0WWDFDhXQKuQIvzdApQpU4norHBJaG4exi2BCnafqn8ncBrPX8IfgvdEThbtXl8brK9A/UAxlNcqB+ffBiApl9agjDkgOzaV+DCQJ0ZUIZ/HEpz4abZPX0wWOCFh4fCGy6DLcAxx0SwU5jCnRfKYGNog2VkcR/iXoJ2Ax5IfjX5OnTFkBSGoRLWXxxNJqpvw9CwIDAQAB\"")
         buildConfigField("String", "host", "\"https://datalake.admore.app/api/\"")
         buildConfigField("String", "baseUrl", "\"http://209.38.231.139:8080/\"")
     }
@@ -112,7 +112,7 @@ afterEvaluate {
 
                 groupId = "com.alpha"
                 artifactId = "AdMoreSDK"
-                version = "1.3" // Increment version for fixes
+                version = "1.4" // Increment version for fixes
 
                 pom {
                     name.set("AdMore SDK")
